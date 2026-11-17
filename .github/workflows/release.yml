@@ -86,6 +86,11 @@ jobs:
       - name: 运行测试
         run: uv run pytest tests/ -q -m "not network"
 
+      # Windows 安装包由 Inno Setup 编译（桌面/开始菜单快捷方式、卸载项）
+      - name: 安装 Inno Setup
+        if: ${{ matrix.platform == 'windows' }}
+        run: choco install innosetup --no-progress -y
+
       - name: 解析版本与渠道
         id: meta
         shell: bash
